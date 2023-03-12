@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import Logo from "../../public/assets/icons/logo.svg"
 import open from "../../public/assets/icons/open.svg"
 
@@ -8,12 +8,24 @@ interface Props {
   navItems: { alt: string; href: string; src: any }[]
 }
 
+const TOGGLE_NAV_STATUS = "toggleNavStatus"
+
 const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
   const [showNav, setShowNav] = useState(false)
 
   const handleToggleNav = () => {
+    localStorage.setItem(TOGGLE_NAV_STATUS, JSON.stringify(!showNav))
     setShowNav(!showNav)
   }
+
+  useEffect(() => {
+    const navState = localStorage.getItem(TOGGLE_NAV_STATUS)
+    if (navState) {
+      setShowNav(JSON.parse(navState))
+    } else {
+      setShowNav(true)
+    }
+  }, [])
 
   return (
     <nav
@@ -22,7 +34,10 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
       }`}
     >
       <div>
-        <Link href="/admin" className="flex items-center space-x-2 p-3">
+        <Link
+          href="/admin"
+          className="flex items-center space-x-2 p-3 h-6 py-7 border-b-8 border-gray-300"
+        >
           <Image
             alt="logo"
             src={Logo}
@@ -34,12 +49,12 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
             </span>
           )}
         </Link>
-        <div className="space-y-6 mt-10">
+        <div className="space-y-8 mt-10">
           {navItems.map((item) => {
             return (
               <Link
                 href={item.href}
-                className="flex items-center space-x-2 p-3"
+                className="flex items-center space-x-2 p-3  h-6"
                 key={item.alt}
               >
                 <Image
