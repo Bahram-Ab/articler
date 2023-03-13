@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react"
 import Link from "next/link"
-import Image from "next/legacy/image"
+import Image from "next/image"
 import AdminNav from "@/components/common/AdminNav"
 import DashboardIcon from "@/public/assets/icons/dashboard.svg"
 import postIcon from "@/public/assets/icons/posts.svg"
@@ -28,7 +28,7 @@ const AdminLayout: FC<Props> = ({ children }): JSX.Element => {
       <div className="flex-1 p-4">{children}</div>
       <Link
         href={"/admin/post/create"}
-        className=" w-16 h-16 flex justify-center items-center bg-secondary-light dark:bg-secondary-dark fixed z-10 right-10 bottom-10 p-3 rounded-full hover:scale-90 shadow-sm transition"
+        className=" w-14 h-14 flex justify-center items-center bg-secondary-light dark:bg-secondary-dark fixed z-10 right-10 bottom-10 p-3 rounded-full hover:scale-90 shadow-sm transition"
       >
         <Image alt="addPost" src={addPostIcon} />
       </Link>
