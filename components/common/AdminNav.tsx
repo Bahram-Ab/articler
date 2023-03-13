@@ -29,7 +29,7 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
 
   return (
     <nav
-      className={`h-screen shadow-sm bg-secondary-light dark:bg-secondary-dark flex flex-col justify-between  transform duration-300 ${
+      className={`h-screen shadow-sm bg-secondary-light dark:bg-secondary-dark flex flex-col justify-between  transform duration-300 overflow-hidden sticky top-0 ${
         showNav ? "w-60" : "w-12"
       }`}
     >
