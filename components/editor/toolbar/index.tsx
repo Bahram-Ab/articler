@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC } from "react"
 import Image from "next/image"
 import { Editor } from "@tiptap/react"
 import DropdownOptions from "@/components/common/DropdownOptions"
@@ -15,9 +15,10 @@ import {
   BsTypeItalic,
   BsTypeUnderline,
   BsImageFill,
-  BsLink45Deg,
   BsYoutube
 } from "react-icons/bs"
+import InsertLink from "./link/InsertLink"
+import { linkOptions } from "./link/LinkForm"
 
 interface Props {
   editor: Editor | null
@@ -62,6 +63,10 @@ const ToolBar: FC<Props> = ({ editor }): JSX.Element | null => {
     toCodeBlock: () => editor.chain().focus().toggleCodeBlock().run(),
     toOL: () => editor.chain().focus().toggleOrderedList().run(),
     toUL: () => editor.chain().focus().toggleBulletList().run()
+  }
+
+  const handleLinkSubmit = (link: linkOptions) => {
+    console.log(link)
   }
 
   const Head = (): JSX.Element => {
@@ -129,9 +134,7 @@ const ToolBar: FC<Props> = ({ editor }): JSX.Element | null => {
         >
           <BsBraces />
         </Button>
-        <Button>
-          <BsLink45Deg />
-        </Button>
+        <InsertLink onSubmit={handleLinkSubmit} />
         <Button
           active={editor.isActive("orderedList")}
           onClick={buttonFunctions.toOL}

@@ -1,9 +1,9 @@
 import { FC } from "react"
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import ToolBar from "./toolbar"
 import Underline from "@tiptap/extension-underline"
 import Placeholder from "@tiptap/extension-placeholder"
+import ToolBar from "./toolbar"
 
 interface Props {}
 
