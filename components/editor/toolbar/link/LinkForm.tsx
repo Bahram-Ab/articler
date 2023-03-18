@@ -1,8 +1,9 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 interface Props {
-  visible: boolean
+  setVisible: (parameter: boolean) => void
   onSubmit(link: linkOptions): void
+  initialState?: linkOptions
 }
 
 export type linkOptions = {
@@ -10,15 +11,33 @@ export type linkOptions = {
   openInNewTab: boolean
 }
 
-const LinkForm: FC<Props> = ({ visible, onSubmit }): JSX.Element | null => {
+const validateURL = (url: string) => {
+  let finalURL
+  try {
+    finalURL = new URL(url)
+  } catch (error) {
+    finalURL = new URL("http://" + url)
+  }
+  return finalURL.origin
+}
+
+const LinkForm: FC<Props> = ({
+  onSubmit,
+  setVisible,
+  initialState
+}): JSX.Element => {
   const [link, setLink] = useState<linkOptions>({ url: "", openInNewTab: true })
 
   const handleSubmit = () => {
     if (!link.url.trim()) return
-    onSubmit(link)
+    onSubmit({ ...link, url: validateURL(link.url) })
+    setVisible(false)
   }
 
-  if (!visible) return null
+  useEffect(() => {
+    if (initialState) setLink({ ...initialState })
+  }, [initialState])
+
   return (
     <div className="rounded p-2 bg-primary dark:bg-primary-dark shadow-sm shadow-secondary-dark">
       <input

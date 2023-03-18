@@ -65,8 +65,10 @@ const ToolBar: FC<Props> = ({ editor }): JSX.Element | null => {
     toUL: () => editor.chain().focus().toggleBulletList().run()
   }
 
-  const handleLinkSubmit = (link: linkOptions) => {
-    console.log(link)
+  const handleLinkSubmit = ({ url, openInNewTab }: linkOptions) => {
+    const { commands } = editor
+    if (openInNewTab) commands.setLink({ href: url, target: "_blank" })
+    else commands.setLink({ href: url })
   }
 
   const Head = (): JSX.Element => {

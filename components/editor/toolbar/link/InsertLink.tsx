@@ -19,7 +19,7 @@ const InsertLink: FC<Props> = ({ onSubmit }): JSX.Element => {
       </Button>
 
       <div className="absolute top-full mt-4 right-0 z-50">
-        <LinkForm visible={visible} onSubmit={onSubmit} />
+        {visible && <LinkForm onSubmit={onSubmit} setVisible={setVisible} />}
       </div>
     </div>
   )
